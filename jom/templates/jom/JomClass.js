@@ -164,7 +164,7 @@
 		try {
 			$form.ajaxSubmit(options); 			
 		} catch(ex) {
-			console.err(ex);
+			console.error(ex);
 		}
 		return false;
 	});	
@@ -324,9 +324,8 @@
 		traditional: true,
 		success: function(jsonResponse) { 
 			if (jsonResponse.result == true) {
-				var jomInstace = new {{ clazz }}(jsonResponse.config);
-				jomInstace.updateFormFields($form);
-				successCallback(jomInstace);
+				var jomInstance = new {{ clazz }}(jsonResponse.config);
+				successCallback(jomInstance);
 			} else {
 				errorCallback(jsonResponse);
 			}
@@ -340,7 +339,7 @@
 		try {
 			$form.ajaxSubmit(options); 			
 		} catch(ex) {
-			console.err(ex);
+			console.error(ex);
 		}
 		return false;
 	});	
