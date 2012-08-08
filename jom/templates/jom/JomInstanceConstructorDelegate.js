@@ -4,6 +4,6 @@ function() {
 		configMap['{{ key }}'] = {{ fieldInstance.toJavascript }};
 	} catch(ex) {
 		// Skip
-	}{% endfor %}}
+	}{% endfor %}
 	return configMap;
 }
