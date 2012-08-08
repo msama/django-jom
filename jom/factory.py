@@ -10,10 +10,7 @@ from django.db.models.fields import CharField, IntegerField, FloatField,\
     TextField, DateField
 from django.db.models.fields.files import FileField
 from django.db.models.fields.related import ForeignKey, ManyToManyField
-from django.db.models.base import Model
 from django.forms.models import ModelFormMetaclass, ModelForm
-from django.template.base import Template
-from django.template.context import Context
 from django.template.loader import render_to_string
 
 class JomFactory(object):
@@ -328,9 +325,4 @@ class JomInstance(JomEntry):
                 'clazz': self.descriptor.__class__.__name__,
                 'fields': self.jom_fields
                 }
-        
-        t = Template("{{% for key, fieldInstance in fields.items %}\n" +
-                     "'{{ key }}': {{ fieldInstance.toJavascript }}{% if not forloop.last %},{% endif %}{% endfor %}}")
-        c = Context(dictionary)
-        return t.render(c)
-        
+        return render_to_string("jom/JomInstanceConstructorDelegate.js", dictionary)

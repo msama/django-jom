@@ -28,37 +28,39 @@ test("Constructor works", function() {
 
 test("Public fields have Getters and Setters", function() {
 	var instance = createInstance(config);
-<<<<<<< HEAD
-	ok(instance ['getName'] != undefined, "no getter");
-        ok(instance ['setName'] != undefined, "no setter");
-=======
-	ok(instance ['getName'] != undefined, "it has no getter");
-        ok(instance ['setName'] != undefined, "it has no setter");
->>>>>>> e0623014ea48fbf7b119af805228591da9a269c9
+	ok(instance ['getName'] != undefined,
+			"A getter for field name should have been defined.");
+    ok(instance ['setName'] != undefined,
+    		"A setter for field name should have been defined");
 });
 
 test("Readonly fields have no setter", function() {
 	var instance = createInstance(config);
-	throws(
-	    function() {
-	      instance.setId(12);
-	    },
-	    "Readonly field ID should not have a setter method"
-	);
+	ok(instance ['setId'] == undefined,
+	    "Readonly field ID should not have a setter method");
 
 });
 
 test("Getters and Setters works", function() {
         var instance = createInstance(config);
-        ok(instance.getName() == config['name'], "Wrong name, getter does not work");
-        ok(instance.getId() == config['id'], "Wrong name, getter does not work");
+        ok(instance.getName() == config['name'],
+        		"Wrong name, getter does not work");
+        ok(instance.getId() == config['id'],
+        		"Wrong name, getter does not work");
         instance.setName('top');
-        ok(instance.getName() == "top", "Wrong name,  setter does not work");
+        ok(instance.getName() == "top",
+        		"Wrong name, setter does not work");
 });
 
 test("Export to Map", function() {
 	var instance = createInstance(config);
-        ok(instance.toMap, "not exported to map");
+	var exportedMap = instance.toMap;
+	for (key in config) {
+		ok(exportedMap[key] == config[key],
+				"not exported to map");
+	}
+	ok(exportedMap['model'] == "SimpleModel",
+			"Unexpected or missing model entry.")
 });
 
 

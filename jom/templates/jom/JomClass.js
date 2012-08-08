@@ -76,18 +76,24 @@
 };
 
 /**
- * Update map
+ * Creates an updated copy of the original map with
+ * all the attributes of the {{ clazz }} instance.
  * 
  * @param map the map to update
  * @return the updated map
  */
 {{ clazz }}.prototype.updateMap = function(map) {
-	map['model'] = {{ clazz|capital }}_MODEL;
+	var clone = {};
+	for (var i in map) {
+		clone[i] = map[i];
+	}
+		
+	clone['model'] = {{ clazz|capital }}_MODEL;
 	for (var key in this.fields) {
-		map[key] = this.fields[key];
+		clone[key] = this.fields[key];
 	}
 	
-	return map;
+	return clone;
 };
 
 /**
@@ -222,11 +228,10 @@
 	return this.joms[instanceId];
 };
 
-{{ clazz }}Factory.prototype.getOrCreate = function(instanceId, fieldMap) {
+{{ clazz }}Factory.prototype.getOrCreate = function(instanceId, constructorDelegate) {
 	var jom =  this.joms[instanceId];
 	if (jom == undefined) {
-		jom = new {{ clazz }}({{% for name, fieldClass in fields.items %}
-            '{{ name }}': fieldMap['{{ name }}']{% if not forloop.last %},{% endif %}{% endfor %}});
+		jom = new {{ clazz }}(constructorDelegate());
         this.joms[instanceId] = jom;
 	}
 	return jom;
