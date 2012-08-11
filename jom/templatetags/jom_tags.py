@@ -10,8 +10,8 @@ from jom.factory import JomFactory
 register = template.Library()
 
 @register.inclusion_tag('jom/templatetags/register_instance.js',
-        takes_context = False)
-def register_instance(instance):
+        takes_context = True)
+def register_instance(context, instance):
     """ Creates an associative array which can
         initialize a JomInstance.
     """
@@ -27,8 +27,8 @@ def register_instance(instance):
 
 
 @register.inclusion_tag('jom/templatetags/register_queryset.js',
-        takes_context = False)
-def register_queryset(queryset):
+        takes_context = True)
+def register_queryset(context, queryset):
     """ Creates an associative array which can
         initialize a JomInstance.
     """
