@@ -207,8 +207,9 @@
  * @param $form a JQuery node wrapping a form.
  */
 {{ clazz }}.prototype.updateFormFields = function($form) {
+	var $field = null,
 	{% for name in fields.keys %}
-		var $field = $form.find("#id_{{ name }}");
+		$field = $form.find("#id_{{ name }}");
 		$field.val(this.fields["{{ name }}"]);
 	{% endfor %}
 };

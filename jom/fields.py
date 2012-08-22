@@ -10,6 +10,7 @@ from django.template.defaultfilters import safe
 from django.template.loader import render_to_string
 
 from jom import factory as jom_factory
+from django.contrib.sites.models import Site
 
 
 class JomField(object):
@@ -152,7 +153,7 @@ class UrlJomField(JomField):
         try:
             filefield = getattr(self.instance, self.name)
             if filefield.name != None:
-                return filefield.url
+                return "http://%s%s" % (Site.objects.get_current(), filefield.url)
             else:
                 return ""
         except ValueError:
