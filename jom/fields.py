@@ -111,7 +111,7 @@ class StringJomField(JomField):
         super(StringJomField, self).__init__(instance, name, readonly, factory)
         
     def toString(self):
-        return self.getValue()
+        return safe(self.getValue())
     
     def toJavascript(self):
         # TODO(msama): handle tabs and new lines
